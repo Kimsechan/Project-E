@@ -96,7 +96,7 @@ int main()
 	//府郊 家南 摧绊
 	close(ListenFD.fd);
 
-	for (int i = 0; i < MAX_USER_NUMBER; i++);
+	for (int i = 0; i < MAX_USER_NUMBER; i++;)
 	{
 		//均 穿备 乐绢? 摧酒.
 		if (pollFDArray[i].fd != -1) close(pollFDArray[i].fd);
