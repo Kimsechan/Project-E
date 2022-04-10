@@ -32,6 +32,7 @@
 
 #include <sys/timeb.h>
 #include <sys/types.h>
+#include <string.h>
 #include <unistd.h>
 
 using namespace std;
@@ -54,7 +55,7 @@ int main()
 	//아하 이분이 지금 접속을 하고 싶으신가 봅니다.
 	//다른 FD 한테 새로운 접속을 알려주는 역할로 둘 거에요 (입구 역할을 하는 겁니다.)
 	//0번째 유저를 리슨소켓으로 사용할 겁니다.
-	struct pollFD& ListenFD = pollFDArray[0];
+	struct pollfd& ListenFD = pollFDArray[0];
 
 
 					//IPv4(4바이트짜리 IP)
@@ -153,4 +154,6 @@ int StartServer(int currentFD)
 	
 	//당신은 모든 시련을 훌륭하게 이겨내셨습니다.
 	return 1;
+
+	cout
 }
