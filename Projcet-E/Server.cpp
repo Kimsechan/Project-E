@@ -64,7 +64,7 @@ int main()
 	ListenFD.revents = 0;
 
 	//			0은 리슨소켓이니까
-	for (int i = 1; i < MAX_USER_NUMBER, i++)
+	for (int i = 1; i < MAX_USER_NUMBER, i++);
 	{
 		//File Descripter가 등록되지 않은 PollFD는 연결이 안된 것입니다.
 		//해당 되는 소켓이 없다는 뜻 입니다.
