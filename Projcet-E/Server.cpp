@@ -54,7 +54,7 @@ int main()
 	//아하 이분이 지금 접속을 하고 싶으신가 봅니다.
 	//다른 FD 한테 새로운 접속을 알려주는 역할로 둘 거에요 (입구 역할을 하는 겁니다.)
 	//0번째 유저를 리슨소켓으로 사용할 겁니다.
-	struct poolfd& ListenFD = pollFDArray[0];
+	struct pollFD& ListenFD = pollFDArray[0];
 
 
 					//IPv4(4바이트짜리 IP)
@@ -78,7 +78,7 @@ int main()
 	{
 		//poll에 대해서 말씀을 드릴 때 누군가 저한테 메세지를 전달했을 때 실행
 		//0번까지도 폴에 넣어서 리슨 소켓에 대답이 있을 때에도 들어갈 수 있게 위에서 설정해줬어요.
-		int result = poll(pollFDArray, MAX_USER_NUMBER, -1);
+		int result = poll(pollFDArray, MAX_USER_NUMBER; -1);
 
 		//누가 부른던데요? 0이면 아무도 대답안했다 15라고 한다면, 15명이 부른다!
 		if (result > 0)
@@ -130,7 +130,7 @@ int StartServer(int currentFD)
 	//실제 서버 IP를 여기에서 넣어주도록 합시다.
 	address.sin_addr.s_addr = inet_addr(SERVER_PRIVATE_IP);
 	//포트까지 적어주어야 했겠죠
-	address.sin_port = hton(SERVER_PORT);
+	address.sin_port = htons(SERVER_PORT);
 	
 	//주소를 여기에요 로 끝난다면 서버가 실행이 안 될 거에요. 저장만 한 것이죠
 	//사용해서 서버를 만들어야 할 거니까
