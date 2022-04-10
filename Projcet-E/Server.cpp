@@ -100,7 +100,7 @@ int main()
 	{
 		//엇 누구 있어? 닫아.
 		if (pollFDArray[i].fd != -1) close(pollFDArray[i].fd);
-	}
+	};
 	return -4;
 }
 
