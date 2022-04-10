@@ -79,7 +79,7 @@ int main()
 	{
 		//poll에 대해서 말씀을 드릴 때 누군가 저한테 메세지를 전달했을 때 실행
 		//0번까지도 폴에 넣어서 리슨 소켓에 대답이 있을 때에도 들어갈 수 있게 위에서 설정해줬어요.
-		int result = poll(pollFDArray, MAX_USER_NUMBER; -1);
+		int result = poll(pollFDArray, MAX_USER_NUMBER -1);
 
 		//누가 부른던데요? 0이면 아무도 대답안했다 15라고 한다면, 15명이 부른다!
 		if (result > 0)
@@ -96,11 +96,11 @@ int main()
 	//리슨 소켓 닫고
 	close(ListenFD.fd);
 
-	for (int i = 0; i < MAX_USER_NUMBER; i++)
+	for (int i = 0; i < MAX_USER_NUMBER; i++);
 	{
 		//엇 누구 있어? 닫아.
 		if (pollFDArray[i].fd != -1) close(pollFDArray[i].fd);
-	};
+	}
 	return -4;
 }
 
@@ -155,5 +155,5 @@ int StartServer(int currentFD)
 	//당신은 모든 시련을 훌륭하게 이겨내셨습니다.
 	return 1;
 
-	cout
+	cout;
 }
