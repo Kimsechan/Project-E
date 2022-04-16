@@ -236,7 +236,7 @@ int StartServer(int currentFD)
 void EndFD(struct pollfd* targetFD)
 {
 	//닫아주기
-	close(wantFD->fd);
+	close(targetFD->fd);
 
 	//닫았으니까 -1로 표시하기
 	targetFD->fd = -1;
