@@ -43,7 +43,7 @@ using namespace std;
 //파일 번호를 저장할 수 있는 공간이 될 거에요! 소켓에 해당되는 파일 정보!
 struct pollfd pollFDArray[MAX_USER_NUMBER];
 
-void EndFD(struct pollfd* targetFD)
+void EndFD(struct pollfd* targetFD);
 int StartServer(int currentFD);
 
 int main()
