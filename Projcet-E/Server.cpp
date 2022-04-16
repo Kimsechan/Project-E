@@ -92,7 +92,7 @@ int main()
 		if (result > 0)
 		{
 			//리슨 소켓에 반응 확인!
-			//누군가 접속을 시도하고 있습니다!
+			//누군가 접속을 시도하고 있습니다!dd
 			if (ListenFD.revents == POLLIN)
 			{
 				cout << "Someone Connected!" << endl;
