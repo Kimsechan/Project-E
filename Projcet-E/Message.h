@@ -39,7 +39,7 @@ void BroadCastMessage(char* message, int length, int sendFD = -1, bool sendSelf 
 	for (int i = 1; i < MAX_USER_NUMBER || send >= currentUserNumber; i++)
 	{
 		//본인한테 안 보낼거임 이라고 할 때 받아온 정보가 있다면 넘어가기
-		if (!sendSelf && i = sendFD) continue;
+		if (!sendSelf && i == sendFD) continue;
 
 		//대상이 없는데 보낼 순 없겠죠?
 		if (pollFDArray[i].fd != -1)
