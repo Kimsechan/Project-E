@@ -154,9 +154,10 @@ int main()
 						break;
 					};
 
+					cout << "Received?" << endl;
 					//꺼달라고 하는게 아니고 다른 걸 부탁했을 때 여기에서 메세지를 처리할 필요가 있구요
 					BroadCastMessage(buffRecv, sizeof(buffRecv));
-
+					cout << "And Send" << endl;
 					//입력 버퍼 초기화
 					memset(buffRecv, 0, sizeof(buffRecv));
 					//입력 해결해줬으니까 더 내용이 없다.
