@@ -247,5 +247,8 @@ void EndFD(struct pollfd* targetFD)
 	targetFD->fd = -1;
 	targetFD->revents = 0;
 
+	//나갔으니까 유저 수 줄여주기
+	--currentUserNumber;
+
 	cout << "User Connection has Destroyed" << endl;
 }
