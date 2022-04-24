@@ -118,5 +118,6 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo i
 	//모아두었다가 보내는 개념
 	//전체 메세지 길이 - 지금 확인한 메시지 길이
 	//아직 뒤에 메시지가 더 있어요! 라고 하는 걸 확인할 수 있죠
-	return messageLength - info.length;
+	//그래서 처리한 길이를 여기에서 확인하고 갈게요
+	return currentLength;
 }
