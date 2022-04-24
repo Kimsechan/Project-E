@@ -20,13 +20,10 @@ union ConvertionBase
 {
 	unsigned int uInteger;
 	int integer;
-
 	float floating;
-
-	char[4] character;
-
-	short[2] shortInteger;
-	unsigned short[2] uShortInteger;
+	char character[4];
+	short shortInteger[2];
+	unsigned short uShortInteger[2];
 };
 ConvertionBase byteConvertor;
 
@@ -37,7 +34,7 @@ struct MessageInfo
 };
 
 //메세지를 구분하는 용도						길이 받을 int 주세요
-MessageType ProcessMessage(char[4] input)
+MessageType ProcessMessage(char input[4])
 {
 	byteConvertor.character = input;
 	//메세지 타입	길이
