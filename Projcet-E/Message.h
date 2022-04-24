@@ -1,5 +1,8 @@
+//항상 클라이언트의 enum값과 일치시켜주세요
 enum class MessageType
 {
+	LogIn,
+	LogOut,
 	Chat,
 
 	Length //제가 가진 메세지 타입의 개수보다 더 많은 내용이 들어오면 무시
