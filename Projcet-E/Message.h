@@ -92,7 +92,7 @@ MessageType ProcessMessage(char input[4])
 	return result;
 }
 
-int TranslateMessage(imt fromFD, char* message, int messageLength, MessageInfo info)
+int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo info)
 {
 	//전체 길이와 하나의 메시지 길이 둘 중에 작은 값으로
 	int currentLength = min(messageLength, info.length);
