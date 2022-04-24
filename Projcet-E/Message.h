@@ -71,8 +71,6 @@ void BroadCastMessage(char* message, int length, int sendFD = -1, bool sendSelf 
 			};
 		};
 	};
-
-	cout << "Message Send To" << send << "User : " << message << endl;
 }
 
 //메세지를 구분하는 용도						길이 받을 int 주세요
