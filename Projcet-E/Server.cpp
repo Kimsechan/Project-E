@@ -152,9 +152,12 @@ int main()
 				switch (pollFDArray[i].revents)
 				{
 				//대상 반응 없음
-				case 0: break;
+				case 0: 
+				{
+					break;
+				}//Switch문 안에 변수나 그런 걸 만들 때에 중괄호를 달아주셔야 해요
 
-				//반응 있음
+					//반응 있음
 				case POLLIN:
 				{
 					//무슨 반응이었는지를 확인해봐야겠죠
@@ -191,8 +194,7 @@ int main()
 					//입력 해결해줬으니까 더 내용이 없다.
 					pollFDArray[i].revents = 0;
 					break;
-				};
-
+				}
 				//이상한 값이 들어온 상태
 				default:
 					EndFD(&pollFDArray[i]);
