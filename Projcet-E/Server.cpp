@@ -177,7 +177,7 @@ int main()
 					if (leftSize > 0)
 					{
 						//					움직이면서 보는 것이죠
-						int currentSize = TranslateMessage(i, buffRecv + checkSize, leftSize, ProcessMessage(buffRecv + checkSize));
+						int currentSize = TranslateMessage(i, buffRecv + checkSize, leftSize, ProcessMessage(buffRecv + checkSize, i));
 
 						checkSize += currentSize;
 						leftSize -= currentSize;

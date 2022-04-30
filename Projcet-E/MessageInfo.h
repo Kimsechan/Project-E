@@ -36,9 +36,9 @@ public :
 
 class MessageInfo_Login : public MessageInfo
 {
+public :
 	int userIndex;
 	string name;
-public :
 	MessageInfo_Login(char* message, int targetUser)
 	{
 		type = MessageType::LogIn;
