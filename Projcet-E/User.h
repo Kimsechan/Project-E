@@ -19,7 +19,7 @@ public:
 		//여기서는 저희가 중복 로그인이라고 하는 것을 방지해줄 필요가 있습니다.
 		//저희가 같은 이름의 사람이 들어온다거나 이 사람이 이미 로그인 되어 있다고 한 상태에서
 		//다시 로그인을 시도했을 때 문제가 생겼다고 알려줄 수 있겠죠
-		if (isLogin) return;
+		if (isLogin) return false;
 		
 		//이름 설정에 실패했습니다
 		if (!SetName(wantName)) return false;
@@ -42,7 +42,7 @@ public:
 				//얘 저랑 이름 똑같아요
 				if (userArray[i]->name == wantName) return false;
 				//체크한 녀석 하나 제거
-				--leftUser
+				--leftUser;
 			};
 		};
 

@@ -1,4 +1,4 @@
-bool SendMessage(char* massage, int length, int sendFD)
+bool SendMessage(char* message, int length, int sendFD)
 {
 	//서버가 무언갈 보낼 때 " 적어 주는 거" 에요 그래서 write라고 부르고
 	//받을 때에는 Read하겠죠?
