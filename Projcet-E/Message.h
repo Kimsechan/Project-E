@@ -69,25 +69,25 @@ MessageInfo ProcessMessage(char* input, int userIndex)
 	return result;
 }
 
-int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo info)
+int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* info)
 {
 	//전체 길이와 하나의 메시지 길이 둘 중에 작은 값으로
-	int currentLength = min(messageLength, info.length);
+	int currentLength = min(messageLength, info->length);
 	//메모리 중에서 제가 처리해야하는 메모리까지만
 	char* target = new char[currentLength];
 	memcpy(target, message, currentLength);
 
 	//타입에 따라 다른 행동
-	switch (info.type)
+	switch (info->type)
 	{
 	case MessageType::Chat:
 		BroadCastMessage(target, currentLength, fromFD);
 		cout << "Message Send To" << send << "User : " << target + 4 << endl;
 		break;
 	case MessageType::LogIn:
-		MessageInfo_Login loginInfo = (MessageInfo_Login)info;
+		MessageInfo_Login* loginInfo = (MessageInfo_Login*)info;
 		//로그인 정보에서 이름을 받아와서 시도해봅시다
-		if (userArray[fromFD]->LogIn(loginInfo.name))
+		if (userArray[fromFD]->LogIn(loginInfo->name))
 		{
 			BroadCastMessage(target, currentLength, fromFD);
 		};
