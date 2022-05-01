@@ -80,7 +80,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 	int currentLength = min(messageLength, info->length);
 	//메모리 중에서 제가 처리해야하는 메모리까지만!
 	char* target = new char[currentLength];
-	//memcpy(target, message, currentLength);
+	memcpy(target, message, currentLength);
 
 	//타입에 따라 다른 행동!
 	switch (info->type)
@@ -89,7 +89,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 	{
 		MessageInfo_Chat* chatInfo = (MessageInfo_Chat*)info;
 
-		memcpy(target + 20, message + 4, currentLength -20);
+		/*memcpy(target + 20, message + 4, currentLength - 20);
 
 		byteConvertor.uShortInteger[0] = (short)MessageType::Chat;
 		byteConvertor.uShortInteger[1] = currentLength;
@@ -111,6 +111,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 			};
 		};
 		target[19] = ':';
+		*/
 		BroadCastMessage(target, currentLength, fromFD);
 
 		cout << "Message Send To " << send << "User : " << target + 4 << endl;
