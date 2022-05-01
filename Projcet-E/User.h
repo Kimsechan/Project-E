@@ -9,6 +9,11 @@ class User
 	bool isLogin = false;
 
 public:
+	string GetName()
+	{
+		return name;
+	};
+
 	User(int targetFD)
 	{
 		fdNumber = targetFD;
