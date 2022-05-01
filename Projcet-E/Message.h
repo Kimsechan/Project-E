@@ -98,7 +98,9 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 	};
 	case MessageType::LogOut:
 		break;
-	default:break;
+	case MessageType::EndOfLine:
+	default:
+		return MAX_BUFFER_SIZE;//최대치까지 밀어서 그 뒤에 메세지가 더 없다고 알려줍니다
 	}
 	//사실 메세지 같은 경우는 하나씩 보내면 조금 효율이 떨어집니다
 	//보낼 수 있을 때 여러개를 같이 보내는게 좋습니다
