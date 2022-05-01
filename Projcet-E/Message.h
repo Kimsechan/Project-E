@@ -88,8 +88,8 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 	case MessageType::Chat:
 	{
 		MessageInfo_Chat* chatInfo = (MessageInfo_Chat*)info;
-
-		/*memcpy(target + 20, message + 4, currentLength - 20);
+		/*
+		memcpy(target + 20, message + 4, currentLength - 20);
 
 		byteConvertor.uShortInteger[0] = (short)MessageType::Chat;
 		byteConvertor.uShortInteger[1] = currentLength;
@@ -103,18 +103,17 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		{
 			if (i > fromName.size())
 			{
-				target[i] = 32;//스페이스바
+				target[i] = 32;//스페이스바!
 			}
 			else
 			{
 				target[i] = fromName[i - 4];
 			};
 		};
-		target[19] = ':';
-		*/
+		target[19] = ':';*/
 		BroadCastMessage(target, currentLength, fromFD);
 
-		cout << "Message Send To " << userArray[fromFD]->GetName() << " : " << target + 4 << endl;
+		cout << "Message Send From " << userArray[fromFD]->GetName() << " : " << target + 4 << endl;
 		break;
 	}
 	case MessageType::LogIn:

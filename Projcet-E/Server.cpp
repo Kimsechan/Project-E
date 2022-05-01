@@ -42,7 +42,6 @@ using namespace std;
 //소켓을 형상화한 것인데! 리눅스는 소켓이라고 하는 것도 일종의 파일 형태로 관리를 합니다!
 //파일 번호를 저장할 수 있는 공간이 될 거에요! 소켓에 해당되는 파일 정보!
 struct pollfd pollFDArray[MAX_USER_NUMBER];
-
 //듣기만 하는 fd가 필요해요!
 //사실 이상한 애가 와서 이야기를 하면 안들어야겠죠!
 //컴퓨터는 처음 보는 IP가 와서 이야기하면 "전화 잘못거셨어요!" 라고 하면서 끊어버려요!
@@ -57,14 +56,14 @@ char buffRecv[MAX_BUFFER_SIZE] = { 0 };
 //보낼 내용을 저장하는 공간(버퍼)
 char buffSend[MAX_BUFFER_SIZE] = { 0 };
 
-//현재 유저 수 
+//현재 유저 수
 unsigned int currentUserNumber = 0;
 
 void EndFD(struct pollfd* targetFD);
 int StartServer(int currentFD);
 
 //왜 #include가 여기에 있나요?
-//헤더는 복사 붙여넣기라서 여기에 있어야 위에 있는 변수들을 사용할 수 있어서 여기에다 뒀어요
+//헤더는 복사 붙여넣기라서 여기에 있어야 위에 있는 변수들을 사용할 수 있어서 여기에다 뒀어요!
 #include "User.h"
 #include "MessageInfo.h"
 #include "Message.h"
@@ -94,7 +93,7 @@ int main()
 		//0번까지도 폴에 넣어서 리슨 소켓에 대답이 있을 때에도 들어갈 수 있게 위에서 설정해줬어요!
 		int result = poll(pollFDArray, MAX_USER_NUMBER, -1);
 
-		//연결 시도하고 싶어하는 소켓을 새로 준비합니다. 새로운 공간을 만들기 위한 공간?
+		//연결을 시도하고 싶어하는 소켓을 새로 준비합니다! 새로운 공간을 만들기 위한 공간?
 		struct sockaddr_in connectSocket;
 		//연결하고자 하는 소켓의 주소 사이즈!
 		socklen_t addressSize;
@@ -103,66 +102,66 @@ int main()
 		if (result > 0)
 		{
 			//리슨 소켓에 반응 확인!
-			//누군가 접속을 시도하고 있습니다!dd
+			//누군가 접속을 시도하고 있습니다!
 			if (ListenFD.revents == POLLIN)
 			{
 				cout << "Someone Connected!" << endl;
-				//저희는 서버죠 서버는요 누군가 들어오고 싶다면 Ban 된 아이피가 아니라고 한다면야 다 받아줘야 합니다
+				//저희는 서버죠! 서버는요 누군가 들어오고 싶다면 밴된 아이피가 아니라고 한다면야.. 다 받아줘야 합니다!
 				int currentFD = accept(ListenFD.fd, (struct sockaddr*)&connectSocket, &addressSize);
 
-				//0번을 리슨 소켓으로 쓰고 있어서 전체 유저 수를 -1한 상태에서 비교할게요
+				//0번을 리슨 소켓으로 쓰고 있어서 전체 유저 수를 -1한 상태에서 비교할게요!
 				if (currentUserNumber < MAX_USER_NUMBER - 1)
 				{
-					//0은 리슨 소켓이니깐 1부터 시작해서 도는 것이죠
+					//0은 리슨 소켓이니까! 1부터 시작해서 도는 것이죠!
 					for (int i = 1; i < MAX_USER_NUMBER; i++)
 					{
-						//비어있는 pollFD를 찾는거에요
+						//비어있는 pollFD를 찾는 거에요!
 						if (pollFDArray[i].fd == -1)
 						{
 							//이건 뭐지? 누가 있네?
 							if (userArray[i] != nullptr)
 							{
-								//저번에 혹시 안 지워진 경우일 수 있어서 지워버리고 갈게요
+								//저번에 혹시 안지워진 경우일 수 있어서! 지워버리고 갈게요!
 								delete userArray[i];
 							};
 
-							//지금 연결한 소켓의 File Desciptor를 받아오기
+							//지금 연결한 소켓의 File Descriptor를 받아오기!
 							pollFDArray[i].fd = currentFD;
 							pollFDArray[i].events = POLLIN;
 							pollFDArray[i].revents = 0;
 
-							//유저를 새로 만들어주도록 합시다
+							//유저를 새로 만들어주도록 합시다!
 							userArray[i] = new User(i);
 
 							cout << "Connected : " << i << endl;
 
-							//새로 한 명 추가요
+							//새로 한 명 추가요!
 							++currentUserNumber;
-							//한 건 했으니까 쉬어라
+							//한 건 했으니까! 쉬어라!
 							break;
 						};
 					};
 				};
 			};
 
-			//이 위쪽은 접속 관리하는 Listen Socket 내용 이었구요
-			//아래에서는 다른 일반 유저들을 관리하는 부분이 필요할 거에요
+			//이 위쪽은 접속 관리하는 리슨 소켓 내용이었구요
+			//아래에서는 다른 일반 유저들을 관리하는 부분이 필요할 거에요!
 			for (int i = 1; i < MAX_USER_NUMBER; i++)
 			{
 				//대상이 전달해준 반응
 				switch (pollFDArray[i].revents)
 				{
-				//대상 반응 없음
-				case 0: 
+					//반응 없음!
+				case 0:
 				{
 					break;
-				}//Switch문 안에 변수나 그런 걸 만들 때에 중괄호를 달아주셔야 해요
+				}//Switch문 안에 변수나 그런 걸 만들 때에 중괄호를 달아주셔야 해요!
 
-					//반응 있음
+					//반응 있음!
 				case POLLIN:
 				{
-					//무슨 반응이었는지를 확인해봐야겠죠
-					//							읽기 버퍼			연결 해제 요청
+					//무슨 반응이었는지를 확인해봐야겠죠!
+					//                         읽기 버퍼            연결 해제 요청!
 					if (read(pollFDArray[i].fd, buffRecv, MAX_BUFFER_SIZE) < 1)
 					{
 						//꺼달라는데 뭐 ㅎ
@@ -170,26 +169,26 @@ int main()
 						break;
 					};
 
-					//꺼달라고 하는게 아니고 다른 걸 부탁했을 때 여기에서 메세지를 처리할 필요가 있구요
+					//꺼달라고 하는 게 아니고 다른 걸 부탁했을 때 여기에서 메시지를 처리할 필요가 있구요!
 					//BroadCastMessage(buffRecv, sizeof(buffRecv));
 					int leftSize = sizeof(buffRecv);
 					int checkSize = 0;
-					if (leftSize > 0)
+					while (leftSize > 0)
 					{
-						//					움직이면서 보는 것이죠
+						//					움직이면서 보는 것이죠!
 						int currentSize = TranslateMessage(i, buffRecv + checkSize, leftSize, ProcessMessage(buffRecv + checkSize, i));
 
 						checkSize += currentSize;
 						leftSize -= currentSize;
 					};
 
-					//입력 버퍼 초기화
+					//입력 버퍼 초기화!
 					memset(buffRecv, 0, sizeof(buffRecv));
-					//입력 해결해줬으니까 더 내용이 없다.
+					//입력 해결해줬으니까 더 내용이 없다!
 					pollFDArray[i].revents = 0;
 					break;
 				}
-				//이상한 값이 들어온 상태
+				//이상한 값이 들어온 상태!
 				default:
 					EndFD(&pollFDArray[i]);
 					break;
@@ -263,17 +262,17 @@ int StartServer(int currentFD)
 	return 1;
 }
 
-//대상 소켓을 정리하도록 합시다
+//대상 소켓을 정리하도록 합시다!
 void EndFD(struct pollfd* targetFD)
 {
-	//닫아주기
+	//닫아주기!
 	close(targetFD->fd);
 
-	//닫았으니까 -1로 표시하기
+	//닫았으니까 -1로 표시하기~!
 	targetFD->fd = -1;
 	targetFD->revents = 0;
 
-	//나갔으니까 유저 수 줄여주기
+	//나갔으니까 유저 수 줄여주기!
 	--currentUserNumber;
 
 	cout << "User Connection has Destroyed" << endl;
