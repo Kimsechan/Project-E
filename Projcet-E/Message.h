@@ -114,7 +114,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		*/
 		BroadCastMessage(target, currentLength, fromFD);
 
-		cout << "Message Send To " << send << "User : " << target + 4 << endl;
+		cout << "Message Send To " << userArray[fromFD]->GetName() << " : " << target + 4 << endl;
 		break;
 	}
 	case MessageType::LogIn:
