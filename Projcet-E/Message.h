@@ -58,7 +58,7 @@ MessageInfo* ProcessMessage(char* input, int userIndex)
 	switch ((MessageType)byteConvertor.shortInteger[0])
 	{
 	case MessageType::EndOfLine:return nullptr;
-
+	
 	case MessageType::LogIn:	result = new MessageInfo_Login(input, userIndex);
 		break;
 	case MessageType::Chat:		result = new MessageInfo_Chat(input, userIndex);
@@ -86,12 +86,14 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 	switch (info->type)
 	{
 	case MessageType::Chat:
+	{
 		MessageInfo_Chat* chatInfo = (MessageInfo_Chat*)info;
 
 		BroadCastMessage(target, currentLength, fromFD);
 
 		cout << "Message Send To" << send << "User : " << target + 4 << endl;
 		break;
+	}
 	case MessageType::LogIn:
 	{
 		MessageInfo_Login* loginInfo = (MessageInfo_Login*)info;
@@ -109,6 +111,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		return MAX_BUFFER_SIZE;//최대치까지 밀어서 그 뒤에 메세지가 더 없다고 알려줍니다
 
 	default:
+		break;
 	}
 
 	//메세지 처리 완료
