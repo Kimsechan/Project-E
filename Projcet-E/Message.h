@@ -20,7 +20,7 @@ void BroadCastMessage(char* message, int length, int sendFD = -1, bool sendSelf 
 
 	//sendSelf가 false면 -> 본인한테 보내주는 게 아니면! 보내야 하는 유저 개수를
 	//수정해줘야 하겠죠! 본인한테 보내준 셈 칩시다!
-	//반복문이 한 명 덜 줬는데.. 누구지..? 하면서 끝까지 갈 거에요! 그거 막아주기!
+	//반복문이 한 명 덜 줬는데.. 누구지..? 하면서 끝까지 갈 거에요! 그거 막아주기.
 	int send = sendSelf ? 0 : 1;
 	//			 조건   ? true : false
 	//     본인한테 보냄?  아무한테도 아직 안보냈다! : 1명 보내놨다!

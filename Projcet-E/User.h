@@ -44,7 +44,7 @@ public:
 			{
 				//얘 저랑 이름 똑같아요!
 				if (userArray[i]->name == wantName) return false;
-				//체크한 녀석 하나 제거!
+				//체크한 녀석 하나 제거.
 				--leftUser;
 			};
 		};
