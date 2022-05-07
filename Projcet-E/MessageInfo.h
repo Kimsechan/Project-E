@@ -62,7 +62,7 @@ public:
 		type = MessageType::Chat;
 
 		userIndex = targetUser;
-		//메시지의 4번째부터 내용을 넣어주도록 합시다.
+		//메시지의 4번째부터 내용을 넣어주도록 합시다!
 		value = &(message[4]);
 	}
 };
