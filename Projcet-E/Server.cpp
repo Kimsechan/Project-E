@@ -94,6 +94,7 @@ void* SendThread(void* data)
 			//유저 있네!
 			if (userArray[i] != nullptr)
 			{
+				cout << "sended" << endl;
 				//보내보자!
 				userArray[i]->Send();
 
