@@ -42,6 +42,7 @@ class MessageInfo
 public:
 	MessageType type;
 	int length;
+	int userIndex;
 };
 
 class MessageInfo_Login : public MessageInfo
@@ -62,7 +63,6 @@ public:
 class MessageInfo_Chat : public MessageInfo
 {
 public:
-	int userIndex;
 	string value;
 
 	MessageInfo_Chat(char* message, int targetUser)
@@ -72,5 +72,15 @@ public:
 		userIndex = targetUser;
 		//메시지의 4번째부터 내용을 넣어주도록 합시다!
 		value = &(message[4]);
+	}
+};
+
+class MessageInfo_Input : public MessageInfo
+{
+	InputType type;
+	MessageInfo_Input(InputType wantType, int targetUser)
+	{
+		type = wantType;
+		userIndex = targetUser;
 	}
 };
