@@ -23,11 +23,19 @@ enum class MessageType
 	LogIn,
 	LogOut,
 	Chat,
+	Input,
 
 	Unknown,  //서버 전용 모르겠다 선언!
 	Length
 	//제가 가진 메시지 타입의 개수보다 더 많은 내용이 들어오면 무시!
 };
+
+enum class InputType
+{
+	Button0,
+	Button1,
+	Button2,
+}
 
 class MessageInfo
 {
