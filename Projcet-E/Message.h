@@ -68,7 +68,7 @@ MessageInfo* ProcessMessage(char* input, int userIndex)
 	//[][]			[][]
 
 	MessageInfo* result;
-	//메시지 타입에 따라서 내용 넣어주기!
+	//메시지 타입에 따라서 내용 넣어주기.
 	switch ((MessageType)byteConvertor.shortInteger[0])
 	{
 	case MessageType::EndOfLine:return nullptr;
@@ -78,7 +78,7 @@ MessageInfo* ProcessMessage(char* input, int userIndex)
 	case MessageType::Chat:		result = new MessageInfo_Chat(input, userIndex);
 		break;
 	case MessageType::Input:
-		//4번째 칸부터 제가 입력 타입을 적어놓았습니다!
+		//4번째 칸부터 제가 입력 타입을 적어놓았습니다.
 		for (int i = 0; i < 4; i++) byteConvertor.character[i] = input[i + 4];
 		result = new MessageInfo_Input((InputType)byteConvertor.integer, userIndex);
 		break;
@@ -220,7 +220,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		break;
 	}
 	case MessageType::EndOfLine:
-		return MAX_BUFFER_SIZE; //최대치까지 밀어서 그 뒤에 메시지가 더 없다고 알려줍니다!
+		return MAX_BUFFER_SIZE; //최대치까지 밀어서 그 뒤에 메시지가 더 없다고 알려줍니다.
 
 	default:
 		break;
