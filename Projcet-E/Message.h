@@ -6,10 +6,19 @@ void DebugMessage(char* message)
 	{
 		byteConvertor.character[i] = message[i];
 	};
+
+	unsigned short type = byteConvertor.uShortInteger[0];
+
+	if (type == 0)
+	{
+		return;
+	};
 	//첫 번째 두 개의 바이트는 타입으로
-	cout << "[ Type : " << byteConvertor.uShortInteger[0] << " ] ";
+	cout << "[ Type : " << type << " ] ";
+
 	//그 다음 두 개의 바이트는 길이로
 	unsigned short length = byteConvertor.uShortInteger[1];
+
 	cout << "[ Leng : " << length << " ] ";
 	//뒤에 있는 애들은 몽땅 읽어오기
 	for (int i = 0; i < length; i++)
@@ -225,7 +234,6 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		break;
 	case MessageType::Input:
 	{
-		cout << "Input Incomming" << endl;
 		currentLength += 4;
 		MessageInfo_Input* inputInfo = (MessageInfo_Input*)info;
 		char* broadcastResult = new char[12];
@@ -237,7 +245,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		byteConvertor.integer = inputInfo->userIndex;
 		for (int i = 0; i < 4; i++) broadcastResult[i + 4] = byteConvertor.character[i];
 
-		byteConvertor.integer = (int)inputInfo->type;
+		byteConvertor.integer = (int)inputInfo->currentType;
 		for (int i = 0; i < 4; i++) broadcastResult[i + 8] = byteConvertor.character[i];
 
 		BroadCastMessage(broadcastResult, 12);
