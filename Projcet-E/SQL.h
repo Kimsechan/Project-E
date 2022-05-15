@@ -8,7 +8,7 @@
 //지금 연결된 SQL 입니다
 MYSQL* SQLConnection;
 //SQL 한테 질문 합니다. SQL은 저희에게 응답 해주죠
-mySQL_RES* SQLResponse;
+MYSQL_RES* SQLResponse;
 
 //검색해서 결과로 나온 줄을 여기에다가 둡시다
 MYSQL_ROW resultRow;
