@@ -185,7 +185,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		sendResult[8] = userArray[fromFD]->LogIn(loginInfo->name);
 
 		//로그인 정보에서 이름을 받아와서 시도해봅니다!
-		switch (sendResult[8] == 0)
+		switch (sendResult[8])
 		{
 		case 0:	 cout << "Login Succeed"		<< endl; break;
 		case 1:  cout << "Invalide Password"	<< endl; break;
