@@ -34,9 +34,9 @@ int SQLConnect()
 
 	if (mysql_query(SQLConnection, "USE ProjectT") != 0)
 	{
-		(mysql_query(SQLConnection, "CREATE DATABASE ProjectT");
-		(mysql_query(SQLConnection, "USE ProjectT");
-		(mysql_query(SQLConnection, "CREATE TABLE UserDate(ID VARCHAR(24) PRIMARY KEY, PW VARCHAR(24), NAME VARCHAR(24))");
+		mysql_query(SQLConnection, "CREATE DATABASE ProjectT");
+		mysql_query(SQLConnection, "USE ProjectT");
+		mysql_query(SQLConnection, "CREATE TABLE UserDate(ID VARCHAR(24) PRIMARY KEY, PW VARCHAR(24), NAME VARCHAR(24))");
 
 		cout << "Table Created" << endl;
 	};
