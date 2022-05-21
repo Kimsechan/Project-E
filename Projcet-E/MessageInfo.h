@@ -72,6 +72,7 @@ class MessageInfo_SignUp : public MessageInfo
 {
 public:
 	string name;
+	string password;
 	string nicname;
 	MessageInfo_SignUp(char* message, int targetUser)
 	{
