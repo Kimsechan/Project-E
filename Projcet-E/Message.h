@@ -108,6 +108,8 @@ MessageInfo* ProcessMessage(char* input, int userIndex)
 
 	case MessageType::LogIn:	result = new MessageInfo_Login(input, userIndex);
 		break;
+	case MessageType::SignUp:	result = new MessageInfo_SignUp(input, userIndex);
+		break;
 	case MessageType::Chat:		result = new MessageInfo_Chat(input, userIndex);
 		break;
 	case MessageType::Input:
@@ -165,6 +167,13 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		delete sendResult;
 		break;
 	}
+	case MessageType::SignUp:
+	{
+		MessageInfo_SignUp* signupInfo = (MessageInfo_SignUp*)info;
+		cout << "Someone try Sign Up! Name is " << signupInfo->name << ", pw is" << signupInfo->password;
+		cout << ", nicname is " << signupInfo->nicname << endl;
+		break;
+	}
 	case MessageType::LogIn:
 	{
 		MessageInfo_Login* loginInfo = (MessageInfo_Login*)info;
@@ -188,7 +197,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		switch (sendResult[8])
 		{
 		case 0:	 cout << "Login Succeed"		<< endl; break;
-		case 1:  cout << "Invalide Password"	<< endl; break;
+			case 1:  cout << "Invalide Password"	<< endl; break;
 		case 2:  cout << "Already Logined"		<< endl; break;
 		case 3:	 cout << "Non-Exist ID"			<< endl; break;
 		case 4:	 cout << "ID Not Fit In Form"	<< endl; break;
