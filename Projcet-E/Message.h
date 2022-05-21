@@ -170,7 +170,7 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 	case MessageType::SignUp:
 	{
 		MessageInfo_SignUp* signupInfo = (MessageInfo_SignUp*)info;
-		cout << "Someone try Sign Up! Name is " << signupInfo->name << ", pw is" << signupInfo->password;
+		cout << "Someone try Sign Up! Name is " << signupInfo->name << ", pw is " << signupInfo->password;
 		cout << ", nicname is " << signupInfo->nicname << endl;
 		string columns[3];
 		columns[0] = "ID";
