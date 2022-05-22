@@ -178,8 +178,8 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 		columns[2] = "NAME";
 		string values[3];
 		values[0] = "\"" + signupInfo->name +"\"";
-		values[0] = "\"" + signupInfo->password +"\"";
-		values[0] = "\"" + signupInfo->nicname +"\"";
+		values[1] = "\"" + signupInfo->password +"\"";
+		values[2] = "\"" + signupInfo->nicname +"\"";
 		SQLInsert("certification", 3, columns, 3, values);	
 		break;
 	}
