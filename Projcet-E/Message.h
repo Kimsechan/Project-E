@@ -175,13 +175,13 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 
 		string selectWhere = "ID = \"" + signupInfo->name +"\"";
 		SQLSelect("certification", "*", selectWhere);
+
 		resultRow = mysql_fetch_row(SQLResponse);
 
 		//쿼리를 해보았는데 대상이 있네요
 		if (resultRow != nullptr)
 		{
-			cout << resultRow[0] << "has Found" << endl;
-			cout << signupInfo->name << " was already is Database" << endl;
+			cout << resultRow[0] << " was already is Database" << endl;
 			break;
 		};
 
