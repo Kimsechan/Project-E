@@ -232,17 +232,17 @@ int TranslateMessage(int fromFD, char* message, int messageLength, MessageInfo* 
 			sendResult[i] = byteConvertor.character[i];
 		};
 
-		sendResult[8] = userArray[fromFD]->LogIn(loginInfo->name);
+		sendResult[8] = userArray[fromFD]->LogIn(loginInfo->name, loginInfo->password);
 
 		//로그인 정보에서 이름을 받아와서 시도해봅니다!
 		switch (sendResult[8])
 		{
-		case 0:	 cout << "Login Succeed"		<< endl; break;
-			case 1:  cout << "Invalide Password"	<< endl; break;
-		case 2:  cout << "Already Logined"		<< endl; break;
-		case 3:	 cout << "Non-Exist ID"			<< endl; break;
-		case 4:	 cout << "ID Not Fit In Form"	<< endl; break;
-		default: cout << "Unknown Error"		<< endl; break;
+		case 0:	 cout << "Login Succeed"			<< endl; break;
+		case 1:  cout << "Invalide Password"		<< endl; break;
+		case 2:  cout << "Already Logined"			<< endl; break;
+		case 3:	 cout << "Non-Exist ID"				<< endl; break;
+		case 4:	 cout << "ID Not Fit In Form"		<< endl; break;
+		default: cout << "Unknown Error"			<< endl; break;
 		};
 
 		//본인한테 성공 여부를 보내주는 것!
