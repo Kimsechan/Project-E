@@ -24,12 +24,6 @@ bool SQLQuery(string queryString)
 
 	//쿼리를 해서 나온 결과 상태
 	SQLResponse = mysql_store_result(SQLConnection);
-
-	//못가져왔구나
-	if (SQLResponse == nullptr) return false;
-
-	//저희가 하나의 줄로 받아오도록 하면 됩니다
-	//resultRow = mysql_fetch_row(SQLConnection);
 	return true;
 };
 
