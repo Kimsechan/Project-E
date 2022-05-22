@@ -80,10 +80,11 @@ int SQLConnect()
 
 	cout << "MYSQL Connection Succeed" << endl;
 
-	if (mysql_query(SQLConnection, "USE ProjectT") != 0)
+	//어..? Login Info가 없네요?
+	if (mysql_query(SQLConnection, "USE login_info") != 0)
 	{
-		mysql_query(SQLConnection, "CREATE DATABASE ProjectT");
-		mysql_query(SQLConnection, "USE ProjectT");
+		mysql_query(SQLConnection, "CREATE DATABASE login_info");
+		mysql_query(SQLConnection, "USE login_info");
 		mysql_query(SQLConnection, "CREATE TABLE UserDate(ID VARCHAR(24) PRIMARY KEY, PW VARCHAR(24), NAME VARCHAR(24))");
 
 		cout << "Table Created" << endl;
