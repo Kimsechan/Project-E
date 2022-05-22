@@ -70,7 +70,7 @@ public:
 		//다시 로그인을 시도했을 때 문제가 생겼다고 알려줄 수 있겠죠!	
 		if (isLogin) return 2;
 
-		string selectWhere = "ID = \"" + wantname + "\"";
+		string selectWhere = "ID = \"" + wantName + "\"";
 		SQLSelect("certification", "*", selectWhere);
 
 		//그래서 정보가 있는지 확인해보는 거구요
