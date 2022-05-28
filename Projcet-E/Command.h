@@ -14,6 +14,7 @@ int currentIndex;
 
 void CalculatedCommand(string word)
 {
+	cout << word << endl;
 	//아직 아무것도 안 받았어요
 	//그 말은 이제부터 저희가 무슨 명령어를 쓸 것인지 선택할 시간이라는 것입니다.
 	if (currentIndex == 0)
@@ -70,6 +71,7 @@ void* CommandThread(void* data)
 			}
 			else //스페이스가 아니라면 단어에다가 글자를 추가 할 겁니다
 			{
+				cout << currentWord;
 				currentWord += input[i];
 			};
 		};
