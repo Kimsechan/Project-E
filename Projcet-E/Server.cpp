@@ -71,6 +71,9 @@ pthread_t commandThread;
 //현재 유저 수
 unsigned int currentUserNumber = 0;
 
+//서버가 지금 돌고 있는지 여부
+bool isRunning = false;
+
 void EndFD(struct pollfd* targetFD);
 int StartServer(int currentFD);
 
@@ -81,12 +84,13 @@ int StartServer(int currentFD);
 #include "User.h"
 #include "MessageInfo.h"
 #include "Message.h"
+#include "Command.h"
 
 //유저들의 메시지를 보내는 스레드입니다!
 void* SendThread(void* data)
 {
 	int checkNumber;
-	while (true)
+	while (isRunning)
 	{
 		
 		checkNumber = 0;
@@ -127,8 +131,8 @@ int main()
 	//여기서 FD는 준비가 되었고! 서버를 돌려봅시다!
 	//리슨 소켓의 정보를 전달해주면서 서버를 시작할 거에요!
 	StartServer(ListenFD.fd);
-
-	while (true)
+	//서버가 도는지 확인해 볼거에요
+	while (isRunning)
 	{
 		//poll에 대해서 말씀을 드릴 때! 누군가 저한테 메시지를 전달했을 때 실행!
 		//0번까지도 폴에 넣어서 리슨 소켓에 대답이 있을 때에도 들어갈 수 있게 위에서 설정해줬어요!
@@ -301,6 +305,12 @@ int StartServer(int currentFD)
 	if (pthread_create(&sendThread, NULL, SendThread, NULL) != 0)
 	{
 		cout << "Cannot Create Send Thread" << endl;
+		return -1;
+	};
+
+	if (pthread_create(&sendThread, NULL, CommandThread, NULL) != 0)
+	{
+		cout << "Cannot Create Command Thread" << endl;
 		return -1;
 	};
 
