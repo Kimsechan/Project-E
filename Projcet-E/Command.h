@@ -13,7 +13,7 @@ void* CommandThread(void* data)
 				input[i] -= 'A' - 'a';
 			};
 		};
-		switch (input)
+		switch (input.c_str)
 		{
 		case "QUIT":
 		case "END":
