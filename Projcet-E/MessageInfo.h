@@ -38,6 +38,12 @@ enum class InputType
 	Button2,
 };
 
+string SaveAsHashCode(string input)
+{
+	cout << sha256(input) << endl;
+	return input;
+}
+
 class MessageInfo
 {
 public:
@@ -65,6 +71,9 @@ public:
 		//0이 되는 다음 칸 부터 password로 입력
 		++currentIndex;
 		password = &(message[currentIndex]);
+
+		//비밀번호를 해시코드로 변환해서 저장합시다
+		password = SaveAsHashCode(password);
 	}
 };
 
@@ -88,6 +97,9 @@ public:
 		//0이 되는 다음 칸 부터 password로 입력
 		++currentIndex;
 		password = &(message[currentIndex]);
+
+		//비밀번호를 해시코드로 변환해서 저장합시다
+		password = SaveAsHashCode(password);
 
 		//0이 되는 다음 칸 부터 password로 입력
 		while (message[currentIndex] != 0) ++currentIndex;
