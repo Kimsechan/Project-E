@@ -60,7 +60,7 @@ void* CommandThread(void* data)
 		};
 
 		string currentWord;
-		for (int = 0; i <= input.size(); i++)
+		for (int i = 0; i <= input.size(); i++)
 		{
 			//글자가 끝나거나, 스페이스가 나오면 그 자리에서 끊고 읽어보기
 			if (i == input.size() || input[i] == ' ')
@@ -76,4 +76,6 @@ void* CommandThread(void* data)
 		//글자를 모두 파악했으니 실제로 커맨드를 실행합니다
 		ExcuteCommand();
 	};
+
+	return nullptr;
 }
