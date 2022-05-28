@@ -251,6 +251,7 @@ int main()
 		//엇.. 누가 있어? 닫아!
 		if (pollFDArray[i].fd != -1) close(pollFDArray[i].fd);
 	};
+
 	//두 개의 쓰레드를 전부 꺼줍니다
 	void* threadResult;
 	pthread_join(sendThread, &threadResult);
