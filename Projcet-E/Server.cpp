@@ -25,7 +25,7 @@
 #define SEND_TICK_RATE 30
 
 //1초에 얼마나 보내는지!
-#define SEND_PER_SECONDS 1000 / SEND_TICK_RATE
+#define SEND_PER_SECONDS 1.0 / SEND_TICK_RATE
 
 #include <iostream>
 
@@ -65,11 +65,15 @@ char buffRecv[MAX_BUFFER_SIZE] = { 0 };
 char buffSend[MAX_BUFFER_SIZE] = { 0 };
 
 //쓰레드 부분!
+pthread_t recvThread;
 pthread_t sendThread;
 pthread_t commandThread;
 
 //현재 유저 수
 unsigned int currentUserNumber = 0;
+
+//서버가 구동을 시간한지 몇 초가 지났는가?
+double totalTime = 0;
 
 //서버가 지금 돌고 있는지 여부
 bool isRunning = false;
@@ -86,53 +90,8 @@ int StartServer(int currentFD);
 #include "Message.h"
 #include "Command.h"
 
-//유저들의 메시지를 보내는 스레드입니다!
-void* SendThread(void* data)
+void* ReceiveThread(void* data)
 {
-	int checkNumber;
-	while (isRunning)
-	{
-		
-		checkNumber = 0;
-		//유저 전체 돌아주기!
-		for (int i = 1; i < MAX_USER_NUMBER; i++)
-		{
-			//유저 있네!
-			if (userArray[i] != nullptr)
-			{
-				
-				//보내보자!
-				userArray[i]->Send();
-
-				//체크 했습니다!
-				++checkNumber;
-				//체크 다했네요!
-				if (checkNumber >= currentUserNumber) break;
-			};
-		};
-	};
-	return nullptr;
-}
-
-int main()
-{
-	//IPv4(4바이트짜리 IP)
-	ListenFD.fd = socket(AF_INET, SOCK_STREAM, 0);
-	ListenFD.events = POLLIN;
-	ListenFD.revents = 0;
-
-	//     0은 리슨소켓이니까!
-	for (int i = 1; i < MAX_USER_NUMBER; i++)
-	{
-		//File Descripter가 등록되지 않은 pollFD는요! 연결이 안 된 것이죠!
-		//해당되는 소켓이 없다는 뜻입니다!
-		pollFDArray[i].fd = -1;
-	};
-
-	//여기서 FD는 준비가 되었고! 서버를 돌려봅시다!
-	//리슨 소켓의 정보를 전달해주면서 서버를 시작할 거에요!
-	StartServer(ListenFD.fd);
-	//서버가 도는지 확인해 볼거에요
 	while (isRunning)
 	{
 		//poll에 대해서 말씀을 드릴 때! 누군가 저한테 메시지를 전달했을 때 실행!
@@ -242,6 +201,82 @@ int main()
 			};
 		};
 	};
+	return nullptr;
+}
+
+//유저들의 메시지를 보내는 스레드입니다!
+void* SendThread(void* data)
+{
+	int checkNumber;
+	while (isRunning)
+	{
+		
+		checkNumber = 0;
+		//유저 전체 돌아주기!
+		for (int i = 1; i < MAX_USER_NUMBER; i++)
+		{
+			//유저 있네!
+			if (userArray[i] != nullptr)
+			{
+				
+				//보내보자!
+				userArray[i]->Send();
+
+				//체크 했습니다!
+				++checkNumber;
+				//체크 다했네요!
+				if (checkNumber >= currentUserNumber) break;
+			};
+		};
+	};
+	return nullptr;
+}
+
+int main()
+{
+	//시간에 관련된 것들을 해봅시다
+	//서버가 언제 시작되었는지
+	struct timeval startTime;
+	//마이크로 세컨드는 0으로 조절했어요
+	startTime.tv_usec = 0;
+	//지금은.. 몇시인가요?
+	struct timeval currentTime;
+
+	//마지막으로 체크했을때 마이크로 세컨드가 어떻게 되었을까요
+	int lastCheck_uSec = 0;
+	//지금은 그럼 몇 인가요?
+	int current_uSec = 0;
+
+	//IPv4(4바이트짜리 IP)
+	ListenFD.fd = socket(AF_INET, SOCK_STREAM, 0);
+	ListenFD.events = POLLIN;
+	ListenFD.revents = 0;
+
+	//     0은 리슨소켓이니까!
+	for (int i = 1; i < MAX_USER_NUMBER; i++)
+	{
+		//File Descripter가 등록되지 않은 pollFD는요! 연결이 안 된 것이죠!
+		//해당되는 소켓이 없다는 뜻입니다!
+		pollFDArray[i].fd = -1;
+	};
+
+	//여기서 FD는 준비가 되었고! 서버를 돌려봅시다!
+	//리슨 소켓의 정보를 전달해주면서 서버를 시작할 거에요!
+	StartServer(ListenFD.fd);
+	while (isRunning)
+	{
+		//시간을 받아옵시다
+		gettimeofday(&currentTime, NULL);
+
+		//지난 시간은 이 정도 되요
+		current_uSec = currentTime.tv_usec - lastCheck_uSec;
+
+		totalTime += current_uSec / 1000000.0;
+
+		cout << totalTime << endl;
+
+		lastCheck_uSec = currentTime.tv_usec;
+	};
 
 	//리슨 소켓 닫고
 	close(ListenFD.fd);
@@ -254,6 +289,7 @@ int main()
 
 	//두 개의 쓰레드를 전부 꺼줍니다
 	void* threadResult;
+	pthread_join(recvThread, &threadResult);
 	pthread_join(sendThread, &threadResult);
 	pthread_join(commandThread, &threadResult);
 	return -4;
@@ -328,6 +364,13 @@ int StartServer(int currentFD)
 	if (pthread_create(&commandThread, NULL, CommandThread, NULL) != 0)
 	{
 		cout << "Cannot Create Command Thread" << endl;
+		isRunning = false;
+		return -1;
+	};
+
+	if (pthread_create(&recvThread, NULL, ReceiveThread, NULL) != 0)
+	{
+		cout << "Cannot Create Receive Thread" << endl;
 		isRunning = false;
 		return -1;
 	};
