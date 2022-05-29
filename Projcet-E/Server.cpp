@@ -300,13 +300,15 @@ int main()
 	//닫혔으니까 poll돌리고 있는 애 한테도 같이 알려줍시다
 	write(ListenFD.fd, " ", 1);
 
-	//리슨 소켓 닫고
-	close(ListenFD.fd);
-
+	//전체 소켓을 닫아주기
 	for (int i = 0; i < MAX_USER_NUMBER; i++)
 	{
 		//엇.. 누가 있어? 닫아!
-		if (pollFDArray[i].fd != -1) close(pollFDArray[i].fd);
+		if (pollFDArray[i].fd != 1)
+		{
+			//강제종료	현재소켓을			읽기 쓰기
+			shutdown(pollFDArray[i].fd, SHUT_RDWR);
+		};
 	};
 
 	//두 개의 쓰레드를 전부 꺼줍니다
