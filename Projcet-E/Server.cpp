@@ -311,7 +311,7 @@ int main()
 
 	//두 개의 쓰레드를 전부 꺼줍니다
 	void* threadResult;
-	pthread_join(recvThread, &threadResult);
+	pthread_cancel(recvThread);
 	pthread_join(sendThread, &threadResult);
 	pthread_join(commandThread, &threadResult);
 	return -4;
